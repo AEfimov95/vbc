@@ -23,14 +23,14 @@
           <IconsMailIcon />
         </template>
       </FormInput>
-      <FormPassword :placeholder="'Password'" v-model="form.password">
+      <FormPassword :placeholder="'Password'" v-model="userStore.password">
         <template #left-content>
           <IconsShieldIcon />
         </template>
       </FormPassword>
       <FormPassword
         :placeholder="'Confirm Password'"
-        v-model="form.confirm_password"
+        v-model="userStore.confirm_password"
       >
         <template #left-content>
           <IconsShieldIcon />
@@ -41,7 +41,9 @@
       </FormCheckbox>
       <div class="flex flex-col items-center gap-5 mt-[15px]">
         <FormButton
-          :disabled="isEmptyField || form.password !== form.confirm_password"
+          :disabled="
+            userStore.isSomeEmpty || userStore.password !== userStore.confirm_password
+          "
         >
           SIGN UP
         </FormButton>
@@ -54,36 +56,18 @@
   </div>
 </template>
 <script setup lang="ts">
-interface PasswordForm {
-  password: string;
-  confirm_password: string;
-}
-const form = reactive<PasswordForm>({
-  password: "",
-  confirm_password: "",
-});
-
 const userStore = useUserStore();
 
-const isEmptyField = computed<boolean>(() => {
-  return Object.values(form).some((value) => !value) || userStore.isSomeEmpty;
-});
-const isSomeField = computed<boolean>(() => {
-  return (
-    Object.values(form).some((value) => value !== "") || userStore.isSomeFilled
-  );
-});
 const nextStep = (): void => {
   router.push({ name: "otp" });
 };
 
 const router = useRouter();
 router.beforeEach((to, from, next) => {
-  if (from.path === "/signup" && to.path === "/" && isSomeField.value) {
-    const answer = window.confirm(
-      "Your entered data may be lost, do you really want to leave?"
-    );
-    if (answer) {
+  if (from.path === "/signup" && to.path === "/" && userStore.isSomeFilled) {
+    if (
+      confirm("Your entered data may be lost, do you really want to leave?")
+    ) {
       userStore.clearData();
       next();
     } else {
@@ -92,5 +76,9 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+});
+
+onUnmounted(() => {
+  userStore.clearPasswords();
 });
 </script>

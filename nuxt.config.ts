@@ -11,11 +11,4 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["composables"],
   },
-  nitro: {
-    preset: "github-pages",
-  },
-  app: {
-    baseURL: "/vbc/", 
-    buildAssetsDir: "assets",
-  },
 });
