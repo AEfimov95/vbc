@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #161616;
+  }
+}
+
+@layer components {
+  .title {
+    @apply font-bold text-xl text-black;
+  }
+  .section {
+    @apply flex flex-col w-[720px] h-[1024px] relative;
+  }
+  .input-form {
+    @apply w-full h-[64px] rounded-[10px] border-2 border-solid border-blue-light/50 bg-blue-light/10  placeholder:text-blue-royal/20 font-[Inter] text-md text-blue-royal focus:outline-none focus:border-blue-light;
+  }
+  .btn {
+    @apply w-full h-[64px] rounded-[10px] bg-blue-dark disabled:bg-blue-light disabled:cursor-not-allowed font-[Inter] text-lg font-bold text-white text-center;
+  }
+  .link {
+    @apply inline-block text-base font-medium text-blue-light
+  }
+}
