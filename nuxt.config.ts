@@ -1,9 +1,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: [
-    '@pinia/nuxt',
-  ],
-  css: ['~/assets/css/fonts.css','~/assets/css/main.css'],
+  modules: ["@pinia/nuxt"],
+  css: ["~/assets/css/fonts.css", "~/assets/css/main.css"],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -11,8 +9,13 @@ export default defineNuxtConfig({
     },
   },
   imports: {
-    dirs: [
-      'composables',
-    ]
-  }
-})
+    dirs: ["composables"],
+  },
+  nitro: {
+    preset: "github-pages",
+  },
+  app: {
+    baseURL: "/vbc/", 
+    buildAssetsDir: "assets",
+  },
+});

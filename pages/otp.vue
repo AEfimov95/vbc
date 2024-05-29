@@ -19,7 +19,7 @@
         />
       </div>
       <div class="px-3">
-        <FormButton :disabled="isComplete"> SUBMIT </FormButton>
+        <FormButton :disabled="!isComplete"> SUBMIT </FormButton>
       </div>
     </form>
   </div>
