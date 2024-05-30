@@ -28,6 +28,9 @@
   </div>
 </template>
 <script setup lang="ts">
+definePageMeta({
+  middleware: "confirm-clear",
+});
 interface LoginForm {
   email: string;
   password: string;

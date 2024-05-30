@@ -42,7 +42,8 @@
       <div class="flex flex-col items-center gap-5 mt-[15px]">
         <FormButton
           :disabled="
-            userStore.isSomeEmpty || userStore.password !== userStore.confirm_password
+            userStore.isSomeEmpty ||
+            userStore.password !== userStore.confirm_password
           "
         >
           SIGN UP
@@ -56,27 +57,12 @@
   </div>
 </template>
 <script setup lang="ts">
+
+
 const userStore = useUserStore();
-
-const nextStep = (): void => {
-  router.push({ name: "otp" });
+const nextStep = async (): Promise<void> => {
+  await navigateTo("/otp");
 };
-
-const router = useRouter();
-router.beforeEach((to, from, next) => {
-  if (from.path === "/signup" && to.path === "/" && userStore.isSomeFilled) {
-    if (
-      confirm("Your entered data may be lost, do you really want to leave?")
-    ) {
-      userStore.clearData();
-      next();
-    } else {
-      next(false);
-    }
-  } else {
-    next();
-  }
-});
 
 onUnmounted(() => {
   userStore.clearPasswords();

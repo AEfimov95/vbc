@@ -6,6 +6,7 @@
       placeholder="-"
       :value="props.modelValue"
       @input="onInput"
+      maxlength="1"
     />
   </div>
 </template>
